@@ -1,5 +1,5 @@
 # Leetcode Solutions
 
-## Personal leetcode solutions written in Java.
+## * Personal leetcode solution soure code written in Java
 
-## TC/SC Analysis + Algorithm notes included 
+## * TC/SC Analysis + Detailed notes included

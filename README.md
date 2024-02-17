@@ -1,2 +1,5 @@
 # Leetcode Solutions
-Personal leetcode solutions written in Java with Time/Space Complexity Analysis and pseudocode notes.
+
+## Personal leetcode solutions written in Java.
+
+## TC/SC Analysis + Algorithm notes included 

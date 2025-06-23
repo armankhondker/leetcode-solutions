@@ -11,24 +11,8 @@ Output: 22
 Explanation: (100) + (101) + (110) + (111) = 4 + 5 + 6 + 7 = 22
 
 
-The computation we are optimizing is the conversion of base-2 number to base-10 number. 
-The way you would usually convert a base-2 to base-10 number is with the formula below:
-
-2^n * nth bit + 2^n-1 * n-1th bit + ... + 2^0 * 0th bit
-
-So in a brute force solution, we would calculate the path from root to leaf and then apply the formula above. 
-Then we would sum up all the results to reach the final sum. BUT WE ARE SMARTER THAN THAT, SO WE CAN DO BETTER!
-
-// If you observe the formula above, we are multiplying the Most Significant Bit, i.e. n, n times by 2 and 
-// the Least Significant Bit 0 times by 2. If we are to share this computation as we iterate
-//  through the tree paths from Most Significant Bit to the Least Significant Bit, we can multiply 
-//  each bit by 2 on every call of this function. This means that when we have reached a leaf, 
-//  which will contain the 0th bit, we would've have multiplied each preceding bit (n,n-1,n-2)th times by 2, 
-//  respectively. The result will be equivalent to the formula we have described above.
 
 
-The code below uses parentNodeSum to keep track of the sum calculated until the nth node and then multiplies that sum by 2.
- Then it adds the value of the current node (i.e. n-1th node ) to the product of that.
 
 In conclusion:
 

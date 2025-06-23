@@ -30,33 +30,30 @@ Optimized:
 //TC: O(n) to build to initial array, O(logn) for each pick index call!
 //SC: O(n) to store the array
 
-
 class Solution {
-
-    Random random;
-    int[] wSums;
-    
+    int[] prefix; 
+    Random rand; 
     public Solution(int[] w) {
-        this.random = new Random();
-        for(int i=1; i<w.length; ++i)
-            w[i] += w[i-1];
-        this.wSums = w;
+        rand = new Random(); 
+        prefix=new int[w.length]; 
+        prefix[0] = w[0];
+        for(int i=1; i<w.length; i++){
+            prefix[i] = prefix[i-1] + w[i];
+        }
     }
     
     public int pickIndex() {
-        int len = wSums.length;
-        int idx = random.nextInt(wSums[len-1]) + 1;
-        int left = 0, right = len - 1;
-        // search position 
-        while(left < right){
-            int mid = left + (right-left)/2;
-            if(wSums[mid] == idx)
-                return mid;
-            else if(wSums[mid] < idx)
-                left = mid + 1;
-            else
-                right = mid;
+        int target = rand.nextInt(prefix[prefix.length-1]);
+        int left =0;
+        int right = prefix.length;
+        while(left<right){
+            int mid = left + (right-left)/2; 
+            if(prefix[mid] > target){
+                right=mid;
+            } else{
+                left=mid+1;
+            }
         }
-        return left;
+        return left; 
     }
 }

@@ -29,7 +29,7 @@ Now, for each key, we can binary search the sorted list of timestamps to find th
 // Complexity: O(1) for each set operation, and O(logN) for each get operation, 
 // where N is the number of entries in the TimeMap.
 
-// Space Complexity: O(N)
+// SC: O(N)
 
 
 class TimeMap {
@@ -52,8 +52,8 @@ class TimeMap {
     
     protected String binarySearch(List<Data> list, int time) {
         int low = 0, high = list.size() - 1;
-        while (low < high) {
-            int mid = (low + high) >> 1;
+        while (low <= high) {
+            int mid = low + (high-low)/2; 
             if (list.get(mid).time == time) return list.get(mid).val;
             if (list.get(mid).time < time) {
                 if (list.get(mid+1).time > time) return list.get(mid).val;

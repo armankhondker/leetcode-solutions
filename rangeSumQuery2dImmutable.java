@@ -18,8 +18,6 @@ sumRegion(2, 1, 4, 3) -> 8
 sumRegion(1, 1, 2, 2) -> 11
 sumRegion(1, 2, 2, 4) -> 12
 
-
-
 BRUTE FORCE 
 
 //TC: O(mn) to compute each range sum

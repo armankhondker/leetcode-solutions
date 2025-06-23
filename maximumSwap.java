@@ -10,18 +10,15 @@ Output: 9973
 Explanation: No swap.
 
 
-
 BRUTE FORCE - try every possible combination of numbers, record max, output it 
 TC: O(n^2)
 SC: O(1)
-
 
 USE A HASHMAP TO GET KEEP TRACK OF last index of each digit 
 
 //TC: O(N) every digit in the input will be conisdered one time 
 //SC: O(1) additional space for char array will be at max 10 length since INT_MAX is 2147483647
 //can also be considered O(N) depending on how big the integers will get 
-
 class Solution {
     public int maximumSwap(int num) {
         char [] A = Integer.toString(num).toCharArray();
@@ -29,7 +26,7 @@ class Solution {
         
         for(int i=0; i<A.length; i++){
             last[A[i] - '0'] = i; //record last index of every number
-        }
+        }s
         
         for(int i=0; i<A.length; i++){
             for(int d=9; d>A[i]-'0'; d--){
@@ -45,5 +42,35 @@ class Solution {
         }
         
         return num;
+    }
+}
+
+// we want to go right to left since we care about the most significant digits (to get biggest swap)
+// we want rightmost largest digit of all numbers 
+// we want to find first smaller number to the left of maxIdx (going from left aka most significant digit)
+BEST SOLLUTION ONE PASS
+TC: O(N)
+SC: O(1)
+
+class Solution {
+    public int maximumSwap(int num) {
+        char[] chars = Integer.toString(num).toCharArray();
+        int maxIdx = chars.length - 1;
+        int n = chars.length;
+        // larger: rightmost largest digit of all numbers
+        // smaller: first smaller number to the left of maxIdx
+        int larger = 0, smaller = 0;
+        for (int i = n - 2; i >= 0; i --) {
+            if (chars[i] > chars[maxIdx])
+                maxIdx = i;
+            else if (chars[i] < chars[maxIdx]) {
+                smaller = i;
+                larger = maxIdx;
+            }            
+        }
+        char temp = chars[larger];
+        chars[larger] = chars[smaller];
+        chars[smaller] = temp;
+        return Integer.valueOf(String.valueOf(chars));
     }
 }

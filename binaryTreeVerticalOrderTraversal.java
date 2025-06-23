@@ -81,56 +81,49 @@ class Solution {
 
 IF solution requires them to be sorted if in same level
 
-class Pair{
-        TreeNode node;
-        int x;  //horizontal
-        int y;  //depth
-        Pair(TreeNode n, int x, int y)
-        {
-            node = n;
-            this.x = x;
-            this.y = y;
-        }
-    }
-    
-    public List<List<Integer>> verticalTraversal(TreeNode root) {
-        List<List<Integer>> lists = new ArrayList<>();
-        Map<Integer, List<Pair>> map = new HashMap<>(); //x -> list (some nodes might have same y in the list)
-        
-        Queue<Pair> q = new LinkedList<>();
-        q.add(new Pair(root, 0, 0));
-        int min = 0, max = 0;
-        while(!q.isEmpty())
-        {
-            Pair p = q.remove(); 
-            
-            min = Math.min(min, p.x);
-            max = Math.max(max, p.x);
-            
-            if(!map.containsKey(p.x)) 
-                map.put(p.x, new ArrayList<>());
-            map.get(p.x).add(p);
-            
-            if(p.node.left!=null) q.add(new Pair(p.node.left, p.x-1, p.y+1));
-            if(p.node.right!=null) q.add(new Pair(p.node.right, p.x+1, p.y+1));
-        }        
+//use temporary map to group ndoes by row, so we can sort before inserting into the map 
 
-        for(int i=min; i<=max; i++)
-        {
-            Collections.sort(map.get(i), new Comparator<Pair>(){
-                public int compare(Pair a, Pair b)
-                {
-                    if(a.y==b.y) //when y is equal, sort it by value
-                        return a.node.val - b.node.val;
-                    return 0; //otherwise don't change the order as BFS ganrantees that top nodes are visited first
+class Solution {
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> res = new ArrayList();
+        if(root==null) return res;
+        Queue<TreeNode> qt = new LinkedList();
+        Queue<Integer> qi = new LinkedList();
+
+        int min=0, max=0;
+        Map<Integer, List<Integer>> map = new HashMap();
+        qt.add(root);
+        qi.add(0);//not root.val
+        while(!qt.isEmpty()){
+            int size = qt.size();
+            Map<Integer,List<Integer>> tmp = new HashMap(); //really just a row mapping
+            for(int i=0;i<size;i++){
+                TreeNode cur = qt.poll();
+                int idx = qi.poll();
+                if(!tmp.containsKey(idx)) tmp.put(idx, new ArrayList<Integer>());
+                tmp.get(idx).add(cur.val);
+                if(idx<min)  min = idx;
+                if(idx>max)  max = idx;
+                if(cur.left!=null){
+                    qt.add(cur.left);
+                    qi.add(idx-1);
                 }
-            });
-            List<Integer> list = new ArrayList<>();
-            for(int j=0; j<map.get(i).size(); j++)
-            {
-                list.add(map.get(i).get(j).node.val);
+                if(cur.right!=null){
+                    qt.add(cur.right);
+                    qi.add(idx+1);
+                } 
             }
-            lists.add(list);
+            for(int key : tmp.keySet()){
+                if(!map.containsKey(key)) map.put(key, new ArrayList<Integer>());
+                List<Integer> list = tmp.get(key);   //sort by level 
+                Collections.sort(list);
+                map.get(key).addAll(list);
+            }
+            
         }
-        return lists;   
+        for (int i=min; i<=max; i++){
+            res.add(map.get(i));
+        }
+        return res;
     }
+}

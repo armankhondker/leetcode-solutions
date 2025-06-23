@@ -28,7 +28,6 @@ Note, since we are keeping track of max, no need to ever shrink the window!!!
 
 //TC: O(N)
 //SC: O(1)
-
 class Solution {
   public int longestOnes(int[] A, int K) {
     int left = 0, right;

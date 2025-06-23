@@ -115,3 +115,67 @@ class LRUCache {
     addToFront(node);
   }
 }
+
+//CLEANER
+
+class LRUCache {
+    class Node {
+        Node prev;
+        Node next;
+        int key;
+        int val; 
+        public Node(int val, int key){
+            this.val = val; 
+            this.key = key;
+        }
+    }
+    HashMap<Integer, Node> map; 
+    Node head;
+    Node tail; 
+    int capacity;
+    public LRUCache(int capacity) {
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1); 
+        head.next = tail;
+        tail.prev = head; 
+        map = new HashMap<>();
+        this.capacity = capacity; 
+    }
+    
+    public int get(int key) {
+        if(map.containsKey(key)){
+            Node curr = map.get(key);
+            remove(curr);
+            insert(curr);
+            return curr.val;
+        } else {
+            return -1; 
+        }
+    }
+    
+    public void put(int key, int value) {
+        if(map.containsKey(key)){
+            remove(map.get(key));
+        } 
+        if(map.size() == capacity){
+            remove(tail.prev); 
+        }
+        insert(new Node(value, key));
+    }
+
+        public void remove(Node node){
+            map.remove(node.key);
+            node.prev.next = node.next; 
+            node.next.prev = node.prev;
+        }
+        public void insert(Node node){
+            map.put(node.key, node); 
+            Node next = head.next; 
+            head.next = node;
+            node.prev = head;
+            next.prev = node;
+            node.next = next; 
+        }
+    
+}
+

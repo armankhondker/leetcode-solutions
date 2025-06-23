@@ -27,3 +27,5 @@ class Solution {
         return heap.peek(); 
     }
 }
+
+//Quick Select

@@ -14,8 +14,6 @@
 
 KEY INTUITION, the array is SORTED!! thats means duplicates will always be next to each other 
 
-Create a var index to keep track of where all the unique elements are, compare elements, return index+1;
-
 //TC: O(N)
 //SC: O(1)
 class Solution {
@@ -32,19 +30,17 @@ class Solution {
 }
 }
 
-
-EASIER TO EXPLAIN CODE, but has error on specific edgecase - array with no duplicate ([1,2]) - > returns ([1])
-VERY SIMILAR LOGIC, only difference is where you start index on first doesnt make sense, this one does
 //TC and SC same
 class Solution {
     public int removeDuplicates(int[] nums) {
-        int index = 1; //start at index one because, first element will always be unique!
-        for(int i=1; i<nums.length-1; i++){
-            if(nums[i] != nums[i+1]){
-                nums[index++] = nums[i+1];
+         if (nums.length == 0) return 0;
+        int insertIndex = 1;
+        for(int i=1; i<nums.length; i++){
+            if(nums[i]!=nums[i-1]){
+                nums[insertIndex] = nums[i];
+                insertIndex++;
             }
         }
-        return index; 
-        
+        return insertIndex;
     }
 }

@@ -22,16 +22,11 @@
 // (The answer [[-2,4],[3,3]] would also be accepted.)
 
 
-
-
-
-
 USE A MAX HEAP,
 
 
 //TC: O(N) to build the heap, O(Nlogk) to extract the min
 //SC: O(k) for a MAX HEAP
-
 
 public int[][] kClosest(int[][] points, int K) {
     PriorityQueue<int[]> pq = new PriorityQueue<int[]>((p1, p2) -> p2[0] * p2[0] + p2[1] * p2[1] - p1[0] * p1[0] - p1[1] * p1[1]);

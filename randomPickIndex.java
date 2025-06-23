@@ -16,7 +16,7 @@ solution.pick(3);
 solution.pick(1);
 
 
-SOLUTION - 
+SOLUTION - resovior sambling 
 
 // To those who don't understand why it works. Consider the example in the OJ
 // {1,2,3,3,3} with target 3, you want to select 2,3,4 with a probability of 1/3 each.

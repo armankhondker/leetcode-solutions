@@ -6,8 +6,7 @@ Optimal SOLUTION, store in a point, with {index, value}
 TC: O(N) 
 SC: O(L), where L is the number of non zero elements
 
-FOLLOW UP, if only one of them is spare,
-CAN DO BINARY SEARCH on 
+FOLLOW UP, if only one of them is sparse, CAN DO BINARY SEARCH 
 
 class SparseVector {
     List<int []> pairs; //list of all nonzero points with mapping {index, array val}
